@@ -4,15 +4,15 @@ import React, { useState } from "react";
 
 // type-check the prop
 interface SearchBarProp {
-    onLocationSubmit: (location: string) => void;
+    onCitySubmit: (city: string) => void;
 }
 
-export default function SearchBar({onLocationSubmit}: SearchBarProp) {
-    const [location, setLocation] = useState("");
+export default function SearchBar({onCitySubmit}: SearchBarProp) {
+    const [city, setCity] = useState("");
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const location = event.target.value;
-        setLocation(location);
+        const city = event.target.value;
+        setCity(city);
     }
 
     const handleKeyPressed = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -23,11 +23,11 @@ export default function SearchBar({onLocationSubmit}: SearchBarProp) {
 
     const handleSubmit = (event: React.FormEvent<HTMLInputElement>) => {
         event.preventDefault();
-        if (location.trim() === "") {
-            alert("Please enter a location!");
+        if (city.trim() === "") {
+            alert("Please enter a city!");
         }
         else {
-            onLocationSubmit(location);
+            onCitySubmit(city);
         }
     }
     
@@ -36,7 +36,7 @@ export default function SearchBar({onLocationSubmit}: SearchBarProp) {
             type="search"
             autoComplete="off"
             autoFocus={true}
-            placeholder="Enter a location:"
+            placeholder="Enter a city:"
             onChange={handleChange}
             onKeyDown={handleKeyPressed}
             className="flex text-xl p-3 outline-solid rounded-xl"
