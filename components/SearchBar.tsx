@@ -1,9 +1,19 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useState } from "react";
 
-export default function SearchBar() {
+// type-check the prop
+interface SearchBarProp {
+    onLocationSubmit: (location: string) => void;
+}
+
+export default function SearchBar({onLocationSubmit}: SearchBarProp) {
     const [location, setLocation] = useState("");
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const location = event.target.value;
+        setLocation(location);
+    }
 
     const handleKeyPressed = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === "Enter") {
@@ -17,8 +27,7 @@ export default function SearchBar() {
             alert("Please enter a location!");
         }
         else {
-            // replace with passing location up to page to make api call
-            console.log(location);
+            onLocationSubmit(location);
         }
     }
     
@@ -28,7 +37,7 @@ export default function SearchBar() {
             autoComplete="off"
             autoFocus={true}
             placeholder="Enter a location:"
-            onChange={(e) => setLocation(e.target.value)}
+            onChange={handleChange}
             onKeyDown={handleKeyPressed}
             className="flex text-xl p-3 outline-solid rounded-xl"
         />
